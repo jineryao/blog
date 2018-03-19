@@ -1,23 +1,44 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+    <div id="app">
+        <div class="sidebar">
+            <Sidebar></Sidebar>
+        </div>
+        <div class="view">
+            <router-view/>
+            <Footer></Footer>
+        </div>
+    </div>
 </template>
 
 <script>
+import Sidebar from "./views/Sidebar"
+import Footer from "./components/Footer"
+
 export default {
-    name: "App"
+    name: "App",
+    components: {
+        Sidebar, Footer
+    }
 }
 </script>
 
 <style>
+@import "./assets/css/base.css";
+@import "./assets/css/iconfont.css";
+
 #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 20vw;
+    min-width: 300px;
+}
+.view {
+    padding: 0 15px;
+    flex: 1;
+    background: #f5f5f5;
 }
 </style>

@@ -1,0 +1,13 @@
+$gray: #666;
+$blue: #2479cc;
+$fontSize: 16px;
+
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
