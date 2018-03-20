@@ -1,9 +1,9 @@
 <template>
-    <section id="blog-page">
+    <div class="archive">
         <Card>
             <Disqus></Disqus>
         </Card>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -11,11 +11,10 @@ import Disqus from "./../components/Disqus"
 import Card from "./../components/Card"
 
 export default {
-    name: "blog-page",
+    name: "archive",
     components: {
         Disqus,
         Card
     }
 }
 </script>
-

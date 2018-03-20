@@ -10,8 +10,7 @@
         </div>
         <div class="btns">
             <router-link class="btn" v-for="btn in siteInfo.menu" :key="btn.label" :to="btn.path">
-                <i :class="['iconfont', btn.type ]"></i>
-                <span>{{ btn.label }}</span>
+                <i :class="['iconfont', btn.type ]"></i>{{ btn.label }}
             </router-link>
         </div>
     </nav>
@@ -86,7 +85,6 @@ export default {
         align-items: center;
         justify-content: center;
         height: 7vh;
-        color: #696969;
         text-align: center;
     }
 }

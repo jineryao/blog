@@ -10,6 +10,7 @@
 <style lang="scss">
 .card {
     padding: 30px 40px 0;
+    background: #fff;
     .content {
         padding-bottom: 30px;
         border-bottom: 1px solid #ddd;

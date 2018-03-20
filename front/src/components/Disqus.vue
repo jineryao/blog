@@ -1,0 +1,52 @@
+<template>
+    <div id="disqus_thread"></div>
+</template>
+
+<script>
+export default {
+    props: {
+        shortName: {
+            type: String,
+            // required: true,
+            dafault: "smcat"
+        }
+    },
+    mounted() {
+        if (window.DISQUS) {
+            this.reset(window.DISQUS)
+            return
+        }
+        this.init()
+    },
+    methods: {
+        reset(dsq) {
+            const self = this
+            dsq.reset({
+                reload: true,
+                config: function() {
+                    this.page.identifier =
+                        self.$route.path || window.location.pathname
+                }
+            })
+        },
+        init() {
+            const self = this
+            window.disqus_config = function() {
+                this.page.identifier =
+                    self.$route.path || window.location.pathname
+            }
+            setTimeout(() => {
+                const d = document
+                let s = d.createElement("script")
+                s.type = "text/javascript"
+                s.async = true
+                s.setAttribute("id", "embed-disqus")
+                s.setAttribute("data-timestamp", +new Date())
+                s.src = `https://${this.shortName}.disqus.com/embed.js`
+                ;(d.head || d.body).appendChild(s)
+            }, 0)
+        }
+    }
+}
+</script>
+

@@ -16,6 +16,11 @@ export function createRouter() {
                 path: "/post/:pathName?",
                 name: "post",
                 component: requireView("BlogPage")
+            },
+            {
+                path: "/archive",
+                name: "archive",
+                component: requireView("Archive")
             }
         ]
     })
