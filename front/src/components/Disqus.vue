@@ -35,6 +35,7 @@ export default {
                 this.page.identifier =
                     self.$route.path || window.location.pathname
             }
+            console.log(`identifier: ${self.$route.path || window.location.pathname}, url: ${self.$el.baseURI}`)
             setTimeout(() => {
                 const d = document
                 let s = d.createElement("script")
