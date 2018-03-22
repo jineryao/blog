@@ -4,6 +4,8 @@ import Router from "vue-router"
 import Login from "@/view/Login.vue"
 import Home from "@/view/Home.vue"
 
+import Post from "@/components/Post.vue"
+
 import CreateListView from "./../view/CreateListView"
 
 Vue.use(Router)
@@ -34,6 +36,27 @@ export default new Router({
                     name: "postList",
                     component: CreateListView({
                         name: "post",
+                        options: {}
+                    })
+                },
+                {
+                    path: "edit",
+                    name: "postEdit",
+                    component: Post
+                }
+            ]
+        },
+        {
+            path: "/page",
+            name: "page",
+            component: Home,
+            redirect: { name: "pageList" },
+            children: [
+                {
+                    path: "list",
+                    name: "pageList",
+                    component: CreateListView({
+                        name: "page",
                         options: {}
                     })
                 }

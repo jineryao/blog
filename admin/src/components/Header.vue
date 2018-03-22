@@ -2,7 +2,17 @@
     <div class="v-header">
         <el-row class="tac">
             <el-col :span="24">
-                <el-menu default-active="1" mode="horizontal" class="el-menu-vertical-demo" :unique-opened="true" theme="dark" @select="handleSelect">
+                <el-menu
+                    default-active="1"
+                    mode="horizontal"
+                    class="el-menu-vertical-demo"
+                    :unique-opened="true"
+                    theme="dark"
+                    @select="handleSelect"
+                    background-color="#555"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                >
                     <el-submenu index="1" class="v-submenu">
                         <template slot="title">
                             <span class="v-subtitle">{{displayName === -1 ? '未登录' : displayName}}</span>

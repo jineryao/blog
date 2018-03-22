@@ -7,6 +7,9 @@
         <el-table-column prop="category" label="分类" width="180">
         </el-table-column>
         <el-table-column prop="tags" label="标签" width="180">
+            <template slot-scope="scope">
+                <el-tag v-for="tag in scope.row.tags" :key="tag">{{ tag }}</el-tag>
+            </template>
         </el-table-column>
         <el-table-column label="操作">
             <template slot-scope="scope">
@@ -35,3 +38,12 @@ export default {
     }
 }
 </script>
+
+<style>
+.cell {
+    text-align: left;
+}
+.el-tag {
+    margin-right: 5px;
+}
+</style>

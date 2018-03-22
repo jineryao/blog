@@ -28,7 +28,7 @@ export default {
                     icon: "document",
                     subset: [
                         { path: "/post/list", label: "文章列表" },
-                        { path: "/post/create", label: "添加文章" }
+                        { path: "/post/edit", label: "添加文章" }
                     ]
                 },
                 {
@@ -36,7 +36,7 @@ export default {
                     icon: "menu",
                     subset: [
                         { path: "/page/list", label: "页面列表" },
-                        { path: "/page/create", label: "添加页面" }
+                        { path: "/page/edit", label: "添加页面" }
                     ]
                 },
                 {
@@ -54,7 +54,7 @@ export default {
         }
     },
     watch: {
-        $route: function (router) {
+        $route: function(router) {
             this.fullPath = router.path
                 .split("/")
                 .slice(0, 3)

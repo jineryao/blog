@@ -1,6 +1,6 @@
 import List from "./../components/List"
 
-export default function (options) {
+export default function(options) {
     return {
         name: `${options.name}-list-view`,
         render(h) {

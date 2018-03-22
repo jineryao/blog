@@ -24,11 +24,14 @@ module.exports = {
         "generator-star-spacing": "off",
         // allow debugger during development
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-        indent: ["error", 4],
+        indent: ["error", 4, { "SwitchCase": 1 }],
         quotes: [1, "double", { allowTemplateLiterals: true }],
         "space-before-function-paren": [
             2,
-            { anonymous: "always", named: "never" }
-        ]
+            {
+                anonymous: "never", //匿名函数 禁止在参数的 ( 前面有空格。
+                named: "never"  //命名的函数表达式 禁止在参数的 ( 前面有空格。
+            }
+        ],
     }
 }
