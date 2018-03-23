@@ -7,6 +7,7 @@ import Home from "@/view/Home.vue"
 import Post from "@/components/Post.vue"
 
 import CreateListView from "./../view/CreateListView"
+import CreateEditView from "./../view/CreateEditView"
 
 Vue.use(Router)
 
@@ -58,6 +59,30 @@ export default new Router({
                     component: CreateListView({
                         name: "page",
                         options: {}
+                    })
+                },
+                {
+                    path: "create",
+                    name: "pageCreate",
+                    component: CreateEditView({
+                        name: "page",
+                        items: [{ label: "" }]
+                    })
+                }
+            ]
+        },
+        {
+            path: "/option",
+            name: "option",
+            component: Home,
+            redirect: { name: "pageList" },
+            children: [
+                {
+                    path: "tag",
+                    name: "pageCreate",
+                    component: CreateEditView({
+                        name: "page",
+                        items: [{ label: "" }]
                     })
                 }
             ]

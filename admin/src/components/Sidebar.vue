@@ -45,7 +45,6 @@ export default {
                     subset: [
                         { path: "/option/general", label: "基本设置" },
                         { path: "/option/comment", label: "评论设置" },
-                        { path: "/option/sort", label: "分类设置" },
                         { path: "/option/tag", label: "标签设置" },
                         { path: "/option/analytic", label: "统计代码" }
                     ]

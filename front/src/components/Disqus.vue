@@ -11,6 +11,11 @@ export default {
             dafault: "smcat"
         }
     },
+    components: {
+        identifier() {
+            return this.$route.path || window.location.pathname
+        }
+    },
     mounted() {
         if (window.DISQUS) {
             this.reset(window.DISQUS)
@@ -20,28 +25,24 @@ export default {
     },
     methods: {
         reset(dsq) {
-            const self = this
+            const identifier = this.identifier
             dsq.reset({
                 reload: true,
                 config: function() {
-                    this.page.identifier =
-                        self.$route.path || window.location.pathname
+                    this.page.identifier = identifier
                 }
             })
         },
         init() {
-            const self = this
+            const identifier = this.identifier
             window.disqus_config = function() {
-                this.page.identifier =
-                    self.$route.path || window.location.pathname
+                this.page.identifier = identifier
             }
-            console.log(`identifier: ${self.$route.path || window.location.pathname}, url: ${self.$el.baseURI}`)
             setTimeout(() => {
                 const d = document
                 let s = d.createElement("script")
                 s.type = "text/javascript"
                 s.async = true
-                s.setAttribute("id", "embed-disqus")
                 s.setAttribute("data-timestamp", +new Date())
                 s.src = `https://${this.shortName}.disqus.com/embed.js`
                 ;(d.head || d.body).appendChild(s)

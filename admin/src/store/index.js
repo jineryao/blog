@@ -12,7 +12,13 @@ export default new Vuex.Store({
             category: "前端",
             tags: ["测试", "js"],
             id: 1
-        }]
+        }],
+        tags:["javascript", "html", "css", "nodejs", "风景", "美食", "闲聊"]
+    },
+    actions: {
+        fetchCreate({ state, commit }, { model }) {
+
+        }
     },
     mutations: {
         SET_USER(state, { user }) {

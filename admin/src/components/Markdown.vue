@@ -8,28 +8,29 @@
             <el-menu-item index="5">
                 摘要
             </el-menu-item>
-            <el-submenu index="6">
+            <el-menu-item index="6">
+                编辑TOC
+            </el-menu-item>
+            <el-submenu index="7">
                 <template slot="title">插入图片</template>
-                <el-menu-item index="6-1">
-                    <i class="el-icon-upload2"></i>上传图片
+                <el-menu-item index="7-1">
+                    上传图片
                 </el-menu-item>
-                <el-menu-item index="6-2">
-                    <i class="el-icon-upload"></i>网络图片
+                <el-menu-item index="7-2">
+                    网络图片
                 </el-menu-item>
             </el-submenu>
-            <el-submenu index="7">
+            <el-submenu index="8">
                 <template slot="title">{{labels[mode]}}</template>
                 <el-menu-item v-for="(modeVal, modeKey) in modeLabels" :key="modeKey" :index="modeKey">
                     {{labels[modeVal]}}
                 </el-menu-item>
             </el-submenu>
-            <el-menu-item index="8">
-                <i class="el-icon-edit"></i>编辑TOC
-            </el-menu-item>
         </el-menu>
         <div class="md-editor" :class="{ mode }">
             <textarea v-if="mode !== 'preview'" ref="markdown" :value="mdContent" @input="handleInput" @keydown.tab.prevent.stop="handleTab" class="md-edit"></textarea>
-            <div v-show="mode !== 'edit'" class="md-preview" v-html="compiledMarkdown"></div>
+            <div v-show="mode !== 'edit' && mode !== 'toc'" class="md-preview" v-html="compiledMarkdown"></div>
+            <textarea v-if="mode === 'toc'" v-model="tocContent" @keydown.enter.prevent.stop="handleTocEnter" class="md-preview"></textarea>
         </div>
     </div>
 </template>
@@ -64,9 +65,9 @@ export default {
                 { label: "编辑TOC" }
             ],
             modeLabels: {
-                "7-1": "edit",
-                "7-2": "split",
-                "7-3": "preview"
+                "8-1": "edit",
+                "8-2": "split",
+                "8-3": "preview"
             },
             labels: {
                 edit: "编辑模式",
@@ -95,9 +96,15 @@ export default {
                     text: "```\ncode block\n```",
                     start: 5,
                     end: 15
+                },
+                "5": {
+                    text: "<!--more-->",
+                    start: 12,
+                    end: 12
                 }
             },
-            mdContent: ""
+            mdContent: "",
+            tocContent: "***文章目录***\n* # "
         }
     },
     computed: {
@@ -107,24 +114,34 @@ export default {
     },
     created() {
         this.mdContent = this.value
+        if (this.toc) {
+            this.tocContent = this.toc
+        }
     },
     methods: {
         handleSelect(key, keyPath) {
-            if (keyPath.length === 1) {
-                let { text, start, end } = this.inputTexts[key]
-                this._preInputText(text, start, end)
-            } else if (keyPath.length === 2) {
-                switch (key) {
-                    case "5-1":
-                        break
-                    case "5-2":
-                        break
-                    case "7-1":
-                    case "7-2":
-                    case "7-3":
-                        this.mode = this.modeLabels[key]
-                        break
-                }
+            switch (key) {
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                    let { text, start, end } = this.inputTexts[key]
+                    this._preInputText(text, start, end)
+                    break
+                case "6":
+                    this.mode = "toc"
+                    break
+                case "7-1":
+                    break
+                case "7-2":
+                    this._importImage()
+                    break
+                case "8-1":
+                case "8-2":
+                case "8-3":
+                    this.mode = this.modeLabels[key]
+                    break
             }
         },
         _preInputText(text, preStart, preEnd) {
@@ -137,15 +154,40 @@ export default {
                 text = text.slice(0, preStart) + exist + text.slice(preEnd)
             }
             let input = mdContent.slice(0, start) + text + mdContent.slice(end)
-            this.mdContent = input
-            // this.handleInput(input)
+            this.handleInput(input)
+        },
+        _importImage() {
+            this.$prompt("请输入图片的链接", "导入图片链接", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            })
+                .then(({ value }) => {
+                    this._preInputText(`![](${value})`, 12, 12)
+                    this.$message({
+                        type: "success",
+                        message: "已插入图片链接"
+                    })
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消插入图片链接"
+                    })
+                })
+        },
+        _uploadImage() {
+            let path = ""
+            //
+            this._preInputText(`![](${path})`, 12, 12)
         },
         handleInput: _.debounce(function(e) {
             this.mdContent = typeof e === "string" ? e : e.target.value
         }, 300),
         handleTab() {
-            this.mdContent += "\t"
-            // this._preInputText("\t")
+            this._preInputText("\t")
+        },
+        handleTocEnter() {
+            this.tocContent += `\n* # `
         }
     }
 }

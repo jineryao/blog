@@ -28,7 +28,7 @@ export default {
 .home {
     position: relative;
     height: 100vh;
-    overflow-y: hidden;
+    overflow: hidden;
     .el-header {
         padding: 0;
         border-bottom: 1px solid #000;
