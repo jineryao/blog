@@ -6,19 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         user: {},
-        list: [{
-            title: "title",
-            pathName: "vue-title",
-            category: "前端",
-            tags: ["测试", "js"],
-            id: 1
-        }],
-        tags:["javascript", "html", "css", "nodejs", "风景", "美食", "闲聊"]
+        list: [
+            {
+                title: "title",
+                pathName: "vue-title",
+                tags: ["测试", "js"],
+                id: 1
+            }
+        ],
+        tags: ["javascript", "html", "css", "nodejs", "风景", "美食", "闲聊"]
     },
     actions: {
-        fetchCreate({ state, commit }, { model }) {
-
-        }
+        fetchCreate({ state, commit }, { model }) {}
     },
     mutations: {
         SET_USER(state, { user }) {

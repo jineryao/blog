@@ -1,10 +1,10 @@
-import Create from "./../components/Create"
+import Edit from "./../components/Edit"
 
 export default function(options) {
     return {
-        name: `${options.name}-Create-view`,
+        name: `${options.name}-Edit-view`,
         render(h) {
-            return h(Create, { props: { options: options } })
+            return h(Edit, { props: { options: options } })
         }
     }
 }

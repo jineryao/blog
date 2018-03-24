@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         submit() {
-            console.log(this.from);
+            console.log(this.from)
         }
     }
 }
@@ -79,4 +79,3 @@ export default {
     width: 100%;
 }
 </style>
-
