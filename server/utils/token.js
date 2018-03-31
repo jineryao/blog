@@ -1,6 +1,6 @@
 // token生成/验证
 const jwt = require("jsonwebtoken")
-const conf = require("./../conf/server")
+const conf = require("./../conf/base")
 
 const secret = conf.tokenSecret
 const expiresIn = conf.tokenExpiresIn

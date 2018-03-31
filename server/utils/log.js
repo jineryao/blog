@@ -3,7 +3,7 @@ const path = require("path")
 const fs = require("fs")
 
 const dir = require("./dir")
-const conf = require("./../conf/server")
+const conf = require("./../conf/base")
 
 let { logDirPath, logFileName } = conf
 

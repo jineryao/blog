@@ -1,12 +1,12 @@
 // orm model
 const mongoose = require("mongoose")
-const conf = require("./../conf/server")
+const conf = require("./../conf/base")
 const log = require("./../utils/log")
 const mongoModel = require("./../model/mongo")
 
 let { mongoHost, mongoPort, mongoDatabase } = conf
 let mongoUrl = `mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`
-mongoose.connect(mongoUrl)
+mongoose.connect(mongoUrl, { autoIndex: false })
 
 const db = mongoose.connection
 db.on("error", err => log.error(`MongoDB connection error: ${err}`))
