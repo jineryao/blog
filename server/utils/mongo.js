@@ -1,27 +1,26 @@
 // orm model
 const mongoose = require("mongoose")
-
 const conf = require("./../conf/server")
 const log = require("./../utils/log")
-const model = require("./../model/mongo")
+const mongoModel = require("./../model/mongo")
 
 let { mongoHost, mongoPort, mongoDatabase } = conf
-let { post, tag, user } = model
-
-let mongoUrl = `${mongoHost}:${mongoPort}/${mongoDatabase}`
-
+let mongoUrl = `mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`
 mongoose.connect(mongoUrl)
-const db = mongoose.connection
 
+const db = mongoose.connection
 db.on("error", err => log.error(`MongoDB connection error: ${err}`))
 db.once("open", () => log.info("MongoDB is ready"))
 
-let postSchema = mongoose.Schema(post)
-let tagSchema = mongoose.Schema(tag)
-let userSchema = mongoose.Schema(user)
-
-module.exports = {
-    post: mongoose.model("post", postSchema),
-    tag: mongoose.model("post", tagSchema),
-    user: mongoose.model("post", userSchema)
+let models = {}
+try {
+    let keys = Object.keys(mongoModel)
+    keys.forEach(key => {
+        let model = mongoose.Schema(mongoModel[key])
+        models[key] = mongoose.model(key, model)
+    })
+} catch (err) {
+    log.error(err)
 }
+
+module.exports = models

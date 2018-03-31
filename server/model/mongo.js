@@ -25,3 +25,9 @@ const user = {
     password: String,
     email: String
 }
+
+module.exports = {
+    post,
+    tag,
+    user
+}
