@@ -1,7 +1,7 @@
-// orm model
+// mongo 连接
 const mongoose = require("mongoose")
 const conf = require("./../conf/base")
-const log = require("./../utils/log")
+const log = require("./log")
 const mongoModel = require("./../model/mongo")
 
 let { mongoHost, mongoPort, mongoDatabase } = conf

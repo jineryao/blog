@@ -1,8 +1,9 @@
+// log 生成
 const bunyan = require("bunyan")
 const path = require("path")
 const fs = require("fs")
 
-const dir = require("./dir")
+const dir = require("./../utils/dir")
 const conf = require("./../conf/base")
 
 let { logDirPath, logFileName } = conf

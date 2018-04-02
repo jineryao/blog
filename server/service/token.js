@@ -1,4 +1,4 @@
-// token生成/验证
+// token 生成/验证
 const jwt = require("jsonwebtoken")
 const conf = require("./../conf/base")
 

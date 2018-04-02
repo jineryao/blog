@@ -12,9 +12,13 @@ module.exports = {
     tokenSecret: "test",
     tokenExpiresIn: 60 * 60,
 
-    defaultAdminName: "admin",
-    defaultAdminPassword: "admin",
+    adminName: "admin",
+    adminPassword: "admin",
+    adminDisplayName: "admin",
+    adminEmail: "",
 
     logDirPath: "./var/log",
-    logFileName: "foo.log"
+    logFileName: "foo.log",
+
+    prefix: "/api"
 }
