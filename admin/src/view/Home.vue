@@ -20,7 +20,18 @@ import VHeader from "./../components/Header"
 
 export default {
     name: "home",
-    components: { VSidebar, VHeader }
+    components: { VSidebar, VHeader },
+    mounted() {
+        this.init()
+    },
+    methods: {
+        init() {
+            if (!window.localStorage.getItem("token")) {
+                this.$prompt.msg_error("请登陆")
+                this.$router.push("/")
+            }
+        }
+    }
 }
 </script>
 

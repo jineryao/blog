@@ -163,16 +163,10 @@ export default {
             })
                 .then(({ value }) => {
                     this._preInputText(`![](${value})`, 12, 12)
-                    this.$message({
-                        type: "success",
-                        message: "已插入图片链接"
-                    })
+                    this.$prompt.msg("已插入图片链接")
                 })
                 .catch(() => {
-                    this.$message({
-                        type: "info",
-                        message: "已取消插入图片链接"
-                    })
+                    this.$prompt.msg("已取消插入图片链接")
                 })
         },
         _uploadImage() {

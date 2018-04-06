@@ -19,28 +19,36 @@ export default {
             }
         }
     },
+    mounted() {
+        this.init()
+    },
     methods: {
         ...mapMutations({
             setUser: "SET_USER"
         }),
+        init() {
+            if (window.localStorage.getItem("token")) {
+                this.$router.push("/home")
+            }
+        },
         login() {
             let { name, password } = this.user
             if (!name || !password) {
-                return this.message_error("请填入用户名,密码")
+                return this.$prompt.msg_error("请填入用户名,密码")
             }
             this.$api
                 .post("/admin/login", this.user)
                 .then(res => {
-                    console.log(res)
-                    if (res.status === "success") {
+                    if (res.data.status === "success") {
+                        this.$prompt.msg_success("登录成功")
+                        window.localStorage.setItem("token", res.data.token)
                         this.setUser({ name, password })
                         this.$router.push("/home")
                     } else {
-                        return this.message_error("登录失败")
+                        return this.$prompt.msg_error("登录失败")
                     }
                 })
-                .catch(err => console.log(err))
-            // this.$router.push("/home")
+                .catch(err => this.$prompt.msg_error(err))
         }
     }
 }
