@@ -6,11 +6,15 @@ function loader(service, loaderName) {
     const dir = fs.readdirSync(url)
 
     return dir.map(filename => {
-        const obj = require(url + "/" + filename)
-        if (!obj.service) {
-            return obj.execute
-        } else {
-            return obj.execute(service)
+        try {
+            const obj = require(url + "/" + filename)
+            if (obj.execute) {
+                return obj.execute
+            } else {
+                return () => {}
+            }
+        } catch (err) {
+            service.log.error("plugins loader error: ", err)
         }
     })
 }

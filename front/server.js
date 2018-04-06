@@ -68,7 +68,7 @@ const serve = (path, cache) =>
     })
 
 app.use(compression({ threshold: 0 }))
-const icoPath = isProd ?  "./blog/front/favicon.ico" : "./favicon.ico"
+const icoPath = isProd ? "./blog/front/favicon.ico" : "./favicon.ico"
 app.use(favicon(icoPath))
 app.use("/dist", serve("./dist", true))
 app.use("/public", serve("./public", true))

@@ -1,5 +1,4 @@
 module.exports = ({ router, service, conf, plugins, controller }) => {
-    let { prefix } = conf
     let { models } = service
 
     Object.keys(models)

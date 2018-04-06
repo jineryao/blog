@@ -2,43 +2,56 @@ const koa = require("koa")
 const koaRouter = require("koa-router")
 const path = require("path")
 
-const utils = require("./../utils/dir")
+const utilDir = require("./../utils/dir")
 const plugins = require("./../plugins/")
 const conf = require("./../conf/base")
+const log = require("./../service/log")
 
 const resolve = url => path.resolve(__dirname, url)
 const app = new koa()
 const router = new koaRouter()
 
-module.exports = () => {
-    try {
-        const controller = utils.loadController()
-        const service = utils.loadService()
+let result = {}
 
-        app.context._service = service
+try {
+    const controller = utilDir.loader(resolve("./../controller/"))
+    const service = utilDir.loader(resolve("./../service/"))
+    const routerFun = utilDir.loader(resolve("./../routers/"))
+    const utils = utilDir.loader(resolve("./../utils/"))
 
-        router.prefix(conf.prefix)
+    const middleware = plugins(service)
 
-        let options = {
-            app,
-            router,
-            conf,
-            controller,
-            service,
-            plugins: plugins(service)
-        }
+    app.context._service = service
+    app.context._utils = utils
 
-        const routerFun = utils.loader(resolve("./../routers/"))
+    router.prefix(conf.prefix)
 
-        Object.keys(routerFun).forEach(key => {
-            routerFun[key](options)
-        })
-
-        app.use(router.routes())
-        app.listen(3000, () => {
-            log.info(`Koa2 is running at ${conf.serverPort}`)
-        })
-    } catch (err) {
-        log.error(err)
+    let options = {
+        app,
+        router,
+        conf,
+        controller,
+        service,
+        utils,
+        plugins: middleware
     }
+
+    let { beforeServerStart, beforeUseRoutes } = middleware
+    beforeServerStart.forEach(fun => fun(options))
+    beforeUseRoutes.forEach(fun => fun(options))
+
+    Object.keys(routerFun).forEach(key => {
+        routerFun[key](options)
+    })
+
+    // 查看所有添加的路由
+    // router.routes().router.stack.forEach(item=> console.log(item.methods[0], item.path))
+
+    app.use(router.routes()).use(router.allowedMethods())
+
+    Object.assign(result, options)
+} catch (err) {
+    log.error(err)
 }
+
+module.exports = result

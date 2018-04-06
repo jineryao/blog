@@ -22,6 +22,7 @@ module.exports = {
         name: String,
         displayName: String,
         password: String,
+        passkey: String,
         email: String
     }
 }

@@ -5,12 +5,14 @@ const path = require("path")
 module.exports = {
     fsExistsSync,
     fsMkdirsSync,
-    loader,
-    loadController,
-    loadService
+    loader
 }
 
-// 检查目录是否存在,true直接返回, false则生成
+/**
+ * 检查目录是否存在,存在则结束, 不存在则生成
+ * @param {any} dirname 目录名字
+ * @returns 结束
+ */
 function fsMkdirsSync(dirname) {
     if (fsExistsSync(dirname)) {
         return true
@@ -22,7 +24,11 @@ function fsMkdirsSync(dirname) {
     }
 }
 
-// 检测目录是否存在
+/**
+ * 检测目录是否存在
+ * @param {any} dirpath 需要检测的目录路径[同步函数]
+ * @returns 是/否
+ */
 function fsExistsSync(dirpath) {
     try {
         fs.accessSync(dirpath)
@@ -32,6 +38,11 @@ function fsExistsSync(dirpath) {
     return true
 }
 
+/**
+ * 遍历目录内文件并加载
+ * @param {any} url 需要遍历的目录路径
+ * @returns  [ { 文件名: 文件提供的执行函数 } [,...] ]
+ */
 function loader(url) {
     const dir = fs.readdirSync(url)
     let result = {}
@@ -41,14 +52,4 @@ function loader(url) {
         result[key] = handle
     })
     return result
-}
-
-function loadController() {
-    const url = path.resolve(__dirname, "../controller")
-    return loader(url)
-}
-
-function loadService() {
-    const url = path.resolve(__dirname, "../service")
-    return loader(url)
 }

@@ -8,6 +8,7 @@ module.exports = model => {
         },
         async findByQuery(ctx, next) {
             console.log("findByQuery")
+            ctx.body = "findByQuery"
         },
         async deleteByQuery(ctx, next) {
             console.log("deleteByQuery")

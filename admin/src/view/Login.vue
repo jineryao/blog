@@ -28,18 +28,19 @@ export default {
             if (!name || !password) {
                 return this.message_error("请填入用户名,密码")
             }
-            // this.$api
-            //     .post("/login", this.user)
-            //     .then(res => {
-            //         if (res.data.status === "ok") {
-            //             this.setUser({ name, password })
-            //             this.$router.push("/home")
-            //         } else {
-            //             return this.message_error("登录失败")
-            //         }
-            //     })
-            //     .catch(err => console.log(err))
-            this.$router.push("/home")
+            this.$api
+                .post("/admin/login", this.user)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === "success") {
+                        this.setUser({ name, password })
+                        this.$router.push("/home")
+                    } else {
+                        return this.message_error("登录失败")
+                    }
+                })
+                .catch(err => console.log(err))
+            // this.$router.push("/home")
         }
     }
 }
