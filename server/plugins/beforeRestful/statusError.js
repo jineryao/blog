@@ -6,7 +6,7 @@ module.exports = {
                 case 404:
                     ctx.throw(404, "not found")
                     break
-                default:
+                case 500:
                     ctx.throw(500, "internal server error")
                     break
             }

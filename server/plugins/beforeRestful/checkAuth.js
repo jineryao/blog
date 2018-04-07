@@ -4,21 +4,22 @@ module.exports = {
         const isGet = ctx.url.startsWith("/api/") && ctx.method === "GET"
         if (isLogin || isGet) return next()
         const headers = ctx.request.headers
-        const service = ctx._service
-        const { errorInfo, log } = service
+        const _service = ctx._service
+        const { receipt, log } = _service
 
         let token = headers["authorization"]
-        if (!token) return (ctx.body = errorInfo.TOKEN_GET_FAIL)
+        if (!token) return (ctx.body = receipt.TOKEN_GET_FAIL)
 
-        const result = service.token.verfiyToken(token)
-        if (!result) return (ctx.body = errorInfo.TOKEN_VERFIY_FAIL)
+        const result = _service.token.verifyToken(token)
 
-        let reply = await service.getAsync("token")
+        if (!result) return (ctx.body = receipt.TOKEN_VERFIY_FAIL)
+
+        let reply = await _service.redis.getAsync("token")
 
         if (reply === token) {
             return next()
         } else {
-            return (ctx.body = errorInfo.TOKEN_VERFIY_FAIL)
+            return (ctx.body = receipt.TOKEN_VERFIY_FAIL)
         }
     }
 }
