@@ -12,10 +12,23 @@ let pwd = redisPassword ? { password: redisPassword } : {}
 
 const client = redis.createClient(Object.assign(options, pwd))
 
-client.on("ready", () => {
-    log.info("Redis is ready")
-})
+client.getAsync = key => {
+    return new Promise((resolve, reject) => {
+        try {
+            client.get(key, function(err, res) {
+                if (err) return reject(err)
+                resolve(res)
+            })
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
 
-client.on("error", err => log.error(`Redis ${err}`))
+client
+    .on("ready", () => {
+        log.info("Redis is ready")
+    })
+    .on("error", err => log.error(`Redis ${err}`))
 
 module.exports = client
