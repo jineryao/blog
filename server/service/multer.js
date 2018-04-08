@@ -3,12 +3,13 @@ const multer = require("koa-multer")
 const dir = require("./../utils/dir")
 const conf = require("./../conf/base")
 
-dir.fsMkdirsSync(conf.uploadImgDirName)
+let dirName = `${conf.staticDirName}/${conf.uploadImgDirName}`
+dir.fsMkdirsSync(dirName)
 
 //配置
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, `${conf.staticDirName}/${conf.uploadImgDirName}`)
+        cb(null, dirName)
     },
     filename: function(req, file, cb) {
         let fileFormat = file.originalname.split(".")
