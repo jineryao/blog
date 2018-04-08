@@ -45,7 +45,7 @@ try {
     })
 
     // 查看所有添加的路由
-    // router.routes().router.stack.forEach(item=> console.log(item.methods[0], item.path))
+    // router.routes().router.stack.forEach(item => console.log(item.methods[0], item.path))
 
     app.use(router.routes()).use(router.allowedMethods())
 

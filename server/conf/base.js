@@ -8,7 +8,7 @@ module.exports = {
 
     redisHost: "127.0.0.1",
     redisPort: 6379,
-    redisPassword: "",
+    redisPassword: "asdASvaQ@adf_afdsAWD123+mfght",
 
     tokenSecret: "test",
     tokenExpiresIn: 60 * 60,
@@ -17,6 +17,9 @@ module.exports = {
     adminPassword: "admin",
     adminDisplayName: "admin",
     adminEmail: "",
+
+    staticDirName: "./static",  // 静态文件目录
+    uploadImgDirName: "images",  // 上传图片的存储目录名
 
     logDirPath: "./var/log", // 日志存储目录
     logFileName: "foo.log",  // 日志文件名
