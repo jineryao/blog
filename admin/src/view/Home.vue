@@ -27,7 +27,7 @@ export default {
     methods: {
         init() {
             if (!window.localStorage.getItem("token")) {
-                this.$prompt.msg_error("请登陆")
+                this.$promptbox.msg_error("请登陆")
                 this.$router.push("/")
             }
         }

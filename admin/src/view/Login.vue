@@ -34,21 +34,21 @@ export default {
         login() {
             let { name, password } = this.user
             if (!name || !password) {
-                return this.$prompt.msg_error("请填入用户名,密码")
+                return this.$promptbox.msg_error("请填入用户名,密码")
             }
             this.$api
                 .post("/admin/login", this.user)
                 .then(res => {
                     if (res.data.status === "success") {
-                        this.$prompt.msg_success("登录成功")
+                        this.$promptbox.msg_success("登录成功")
                         window.localStorage.setItem("token", res.data.token)
                         this.setUser({ name, password })
                         this.$router.push("/home")
                     } else {
-                        return this.$prompt.msg_error("登录失败")
+                        return this.$promptbox.msg_error("登录失败")
                     }
                 })
-                .catch(err => this.$prompt.msg_error(err))
+                .catch(err => this.$promptbox.msg_error(err))
         }
     }
 }

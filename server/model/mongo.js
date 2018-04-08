@@ -15,8 +15,7 @@ module.exports = {
         allowComment: { type: Boolean, default: true }
     },
     tag: {
-        tag: String,
-        pathName: String
+        tag: String
     },
     user: {
         name: String,

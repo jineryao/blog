@@ -6,29 +6,92 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         user: {},
-        list: [
-            {
-                title: "title",
-                pathName: "vue-title",
-                tags: ["测试", "js"],
-                id: 1
-            }
-        ],
-        tags: ["javascript", "html", "css", "nodejs", "风景", "美食", "闲聊"]
+        list: {
+            result: [],
+            total: 0
+        },
+        listSetting: {
+            limit: 5
+        },
+        tags: []
     },
     actions: {
-        fetchCreate({ state, commit }, { model }) {}
+        create({ state, commit }, { path, model }) {
+            return new Promise((resolve, reject) => {
+                Vue.prototype.$api
+                    .post(path, model)
+                    .then(res => {
+                        if (res.data.status === "fail") {
+                            return reject(res.data.message)
+                        }
+                        return resolve(res.data)
+                    })
+                    .catch(err => reject(err))
+            })
+        },
+        findAll({ state, commit }, { path, options }) {
+            return new Promise((resolve, reject) => {
+                Vue.prototype.$api
+                    .get(path, { params: options })
+                    .then(res => {
+                        if (res.data.status === "fail") {
+                            return reject(res.data.message)
+                        }
+                        commit("SET_LIST", res.data)
+                    })
+                    .catch(err => reject(err))
+            })
+        },
+        delById({ state, commit }, { path, id }) {
+            return new Promise((resolve, reject) => {
+                Vue.prototype.$api
+                    .delete(`${path}/${id}`)
+                    .then(res => {
+                        resolve(res.data)
+                    })
+                    .catch(err => reject(err))
+            })
+        },
+        updateById({ state, commit }, { path, model }) {
+            return new Promise((resolve, reject) => {
+                Vue.prototype.$api
+                    .put(`${path}/${model._id}`, model)
+                    .then(res => {
+                        resolve(res.data)
+                    })
+                    .catch(err => reject(err))
+            })
+        },
+        fetchTags({ state, commit }) {
+            return new Promise((resolve, reject) => {
+                Vue.prototype.$api
+                    .get("/tag")
+                    .then(res => {
+                        if (res.data.result) {
+                            let tags = res.data.result.map(tag => tag.tag)
+                            commit("SET_TAGS", tags)
+                            resolve(res.data)
+                        }
+                    })
+                    .catch(err => reject(err))
+            })
+        }
     },
     mutations: {
         SET_USER(state, { user }) {
             Vue.set(state, "user", user)
         },
-        SET_LIST(state, { data }) {
-            Vue.set(state, "list", data)
+        SET_LIST(state, { result = [], total = 0 }) {
+            Vue.set(state.list, "result", result)
+            Vue.set(state.list, "total", total)
+        },
+        SET_TAGS(state, data) {
+            Vue.set(state, "tags", data)
         }
     },
     getters: {
         user: state => state.user,
-        list: state => state.list
+        list: state => state.list,
+        setting: state => state.listSetting
     }
 })

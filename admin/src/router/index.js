@@ -166,10 +166,10 @@ export default new Router({
                     path: "tags",
                     name: "optionTags",
                     component: CreateEditView({
-                        name: "tags",
+                        name: "tag",
                         items: [
                             {
-                                prop: "title",
+                                prop: "tag",
                                 label: "标签",
                                 width: "180"
                             }

@@ -1,8 +1,10 @@
 export default {
     install(Vue, options) {
         const prompt = 2000
+        // 确认依赖[elementUI]是否已导入
         if (!Vue.prototype.$message || !Vue.prototype.$confirm) return
-        Vue.prototype.$prompt = {
+        if (Vue.prototype.$promptbox) throw new Error("util/promptbox.js: $promptbox 命名冲突, 需更改命名")
+        Vue.prototype.$promptbox = {
             _loading: null,
             msg(message = "已取消") {
                 Vue.prototype.$message({

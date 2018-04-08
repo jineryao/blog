@@ -41,7 +41,11 @@ import { marked } from "./../util/marked"
 
 export default {
     name: "markdown",
-    props: ["value", "toc"],
+    props: {
+        value: {
+            type: Object
+        }
+    },
     data() {
         return {
             items: [
@@ -113,10 +117,9 @@ export default {
         }
     },
     created() {
-        this.mdContent = this.value
-        if (this.toc) {
-            this.tocContent = this.toc
-        }
+        let { markdownToc, markdownContent } = this.value
+        this.mdContent = markdownContent
+        this.tocContent = markdownToc
     },
     methods: {
         handleSelect(key, keyPath) {
@@ -163,10 +166,10 @@ export default {
             })
                 .then(({ value }) => {
                     this._preInputText(`![](${value})`, 12, 12)
-                    this.$prompt.msg("已插入图片链接")
+                    this.$promptbox.msg("已插入图片链接")
                 })
                 .catch(() => {
-                    this.$prompt.msg("已取消插入图片链接")
+                    this.$promptbox.msg("已取消插入图片链接")
                 })
         },
         _uploadImage() {
@@ -182,6 +185,14 @@ export default {
         },
         handleTocEnter() {
             this.tocContent += `\n* # `
+        },
+        getValue() {
+            return {
+                markdownContent: this.mdContent,
+                content: this.compiledMarkdown,
+                markdownToc: this.tocContent,
+                toc: marked(this.tocContent.replace(/<!--more-->/g, ""))
+            }
         }
     }
 }
