@@ -2,13 +2,15 @@ module.exports = {
     serverPort: 3000,   // 服务监听端口
     origin: ["http://localhost:8080"], // Access-Control-Allow-Origin 白名单, 数组
 
+    mongoName: "",
+    mongoPwd: "",
     mongoHost: "127.0.0.1",
     mongoPort: 27017,
     mongoDatabase: "blog",
 
     redisHost: "127.0.0.1",
     redisPort: 6379,
-    redisPassword: "asdASvaQ@adf_afdsAWD123+mfght",
+    redisPassword: "",
 
     tokenSecret: "test",
     tokenExpiresIn: 60 * 60,

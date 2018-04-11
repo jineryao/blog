@@ -4,8 +4,7 @@ module.exports = ({ service, model, plugins}) => {
     let { beforeRestful, afterRestful } = plugins
 
     return {
-        findModel: [...beforeRestful, findAll, ...afterRestful],
-        findItem: [...beforeRestful, findByQuery, ...afterRestful],
+        findModel: [...beforeRestful, findByQuery, ...afterRestful],
         create: [...beforeRestful, create, ...afterRestful],
         update: [...beforeRestful, updateByQuery, ...afterRestful],
         del: [...beforeRestful, deleteByQuery, ...afterRestful]

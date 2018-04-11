@@ -9,7 +9,7 @@ module.exports = model => {
                 return (ctx.body = error)
             }
         },
-        async findAll(ctx, next) {
+        async findByQuery(ctx, next) {
             try {
                 let conditions = {}
                 let select = {}
@@ -46,10 +46,6 @@ module.exports = model => {
             } catch (error) {
                 return (ctx.body = error)
             }
-        },
-        async findByQuery(ctx, next) {
-            console.log("findByQuery")
-            ctx.body = "findByQuery"
         },
         async deleteByQuery(ctx, next) {
             try {

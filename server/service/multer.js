@@ -1,10 +1,12 @@
 const crypto = require("crypto")
 const multer = require("koa-multer")
+const path = require("path")
+
 const dir = require("./../utils/dir")
 const conf = require("./../conf/base")
 
 let dirName = `${conf.staticDirName}/${conf.uploadImgDirName}`
-dir.fsMkdirsSync(dirName)
+dir.fsMkdirsSync(path.resolve(__dirname, "..", dirName))
 
 //配置
 let storage = multer.diskStorage({

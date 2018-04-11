@@ -4,8 +4,11 @@ const conf = require("./../conf/base")
 const log = require("./log")
 const mongoModel = require("./../model/mongo")
 
-let { mongoHost, mongoPort, mongoDatabase } = conf
-let mongoUrl = `mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`
+let mongoUrl = "mongodb://"
+let { mongoName, mongoPwd, mongoHost, mongoPort, mongoDatabase } = conf
+if(mongoName && mongoPwd) mongoUrl += `${mongoName}:${mongoPwd}@`
+mongoUrl += `${mongoHost}:${mongoPort}/${mongoDatabase}`
+
 mongoose.connect(mongoUrl, { autoIndex: false })
 
 const db = mongoose.connection

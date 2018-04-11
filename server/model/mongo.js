@@ -23,5 +23,16 @@ module.exports = {
         password: String,
         passkey: String,
         email: String
+    },
+    setting: {
+        title: String,
+        logoUrl: String,
+        description: String,
+        faviconUrl: String,
+        keywords: String,
+        githubUrl: String,
+        weiboUrl: String,
+        shortName: String,
+        analyzeCode: String
     }
 }
