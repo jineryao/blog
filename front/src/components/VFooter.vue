@@ -5,7 +5,7 @@
         <br> Powered by&nbsp;
         <a target=_blank href="https://github.com/vuejs/vue">Vue2</a>
         &nbsp;&amp;&nbsp;
-        <a target=_blank href="https://github.com/expressjs/express">Express</a>
+        <a target=_blank href="https://github.com/koajs/koa">koa2</a>
     </footer>
 </template>
 

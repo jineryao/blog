@@ -1,16 +1,12 @@
 import Vue from "vue"
 import "es6-promise/auto"
 import { createApp } from "./app"
-// import ProgressBar from "./components/ProgressBar.vue"
-
-// global progress bar
-// const bar = (Vue.prototype.$bar = new Vue(ProgressBar).$mount())
-// document.body.appendChild(bar.$el)
 
 // 当路由组件的参数发生变化时，全局mixin调用“asyncData”。
 Vue.mixin({
     beforeRouteUpdate(to, from, next) {
         const { asyncData } = this.$options
+
         if (asyncData) {
             asyncData({
                 store: this.$store,
@@ -25,7 +21,9 @@ Vue.mixin({
 })
 
 const { app, router, store } = createApp()
-
+if (window.__INITIAL_STATE__) {
+    store.replaceState(window.__INITIAL_STATE__)
+}
 // 等待路由器在挂钩前解决所有的异步
 // 和异步组件…
 router.onReady(() => {
@@ -45,10 +43,8 @@ router.onReady(() => {
             return next()
         }
 
-        // bar.start()
         Promise.all(asyncDataHooks.map(hook => hook({ store, route: to })))
             .then(() => {
-                // bar.finish()
                 next()
             })
             .catch(next)
@@ -56,4 +52,3 @@ router.onReady(() => {
 
     app.$mount("#app")
 })
-

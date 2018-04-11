@@ -20,6 +20,8 @@ h1,
 h2,
 h3,
 h4,
+h5,
+h6,
 p,
 span,
 button,
@@ -42,26 +44,30 @@ button {
 input {
     outline: none;
 }
-li {
-    list-style: none;
-}
 img {
+    max-width: 100%;
     vertical-align: top;
 }
 a {
     color: #666;
     text-decoration: none;
+    outline: none;
 }
 a:hover {
     color: #2479cc;
 }
+a:active {
+    color: #666;
+}
 i {
     font-style: inherit;
 }
-
 .page {
     width: 100%;
-    min-height: 100%;
-    min-height: 100vh;
     background: #fff;
 }
+h2 {
+    font-size: 1.3em;
+}
+
+

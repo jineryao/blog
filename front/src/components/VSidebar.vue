@@ -35,11 +35,7 @@ export default {
     @include flex-column;
 }
 #sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20vw;
-    min-width: 300px;
+    width: 100%;
     height: 100vh;
     .iconfont {
         font-size: 18px;
@@ -71,8 +67,8 @@ export default {
         background: #fff;
     }
     .avatar {
-        width: 18vh;
-        height: 18vh;
+        width: 90%;
+        height: 90%;
         border-radius: 50%;
         object-fit: cover;
         object-position: 0;

@@ -4,7 +4,7 @@ const LRU = require("lru-cache")
 const express = require("express")
 const favicon = require("serve-favicon")
 const compression = require("compression")
-// const microcache = require("route-cache")
+const microcache = require("route-cache")
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require("vue-server-renderer")
 
@@ -26,9 +26,7 @@ function createRenderer(bundle, options) {
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             }),
-            // this is only needed when vue-server-renderer is npm-linked
             basedir: resolve("./dist"),
-            // recommended for performance
             runInNewContext: false
         })
     )
@@ -42,17 +40,12 @@ if (isProd) {
     //服务器包由vue -ssr- webpack-plugin生成。
     const template = fs.readFileSync(templatePath, "utf-8")
     const bundle = require("./dist/vue-ssr-server-bundle.json")
-    //客户端清单是可选的，但它允许渲染器
-    //自动推断预加载/预取链接，并直接添加< script>
-    //在渲染期间使用的任何异步块的标签，避免瀑布式请求。
     const clientManifest = require("./dist/vue-ssr-client-manifest.json")
     renderer = createRenderer(bundle, {
         template,
         clientManifest
     })
 } else {
-    //在开发过程中:设置带表的开发服务器和热重加载，
-    //并在bundle / index模板更新中创建一个新的渲染器。
     readyPromise = require("./build/setup-dev-server")(
         app,
         templatePath,
@@ -76,9 +69,9 @@ app.use("/manifest.json", serve("./manifest.json", true))
 app.use("/service-worker.js", serve("./dist/service-worker.js"))
 
 //由于这个应用程序没有用户特定的内容，所以每个页面都是可缓存的。
-// 如果你的应用程序涉及用户特定的内容，你需要实现定制逻辑以确定一个请求是否基于其url和头。秒的microcache。
+// 如果你的应用程序涉及用户特定的内容，你需要实现定制逻辑以确定一个请求是否基于其url和microcache。
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
-// app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
+app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
 
 function render(req, res) {
     const s = Date.now()
@@ -100,7 +93,7 @@ function render(req, res) {
     }
 
     const context = {
-        title: "Vue HN 2.0", // default title 默认网页标题
+        title: "smcat", // default title 默认网页标题
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {

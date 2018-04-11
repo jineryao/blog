@@ -3,15 +3,11 @@ import App from "./App.vue"
 import { createStore } from "./store"
 import { createRouter } from "./router"
 import { sync } from "vuex-router-sync"
-import axios from "axios"
+import mixin from "./util/mixin"
 
 const isProd = process.env.NODE_ENV === "production"
 
-axios.create({
-    baseURL: process.env.host
-})
-
-Vue.prototype.$api = axios
+Vue.mixin(mixin)
 
 export function createApp() {
     const store = createStore()
