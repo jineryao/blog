@@ -72,7 +72,7 @@ export default new Router({
                     path: "general",
                     name: "optionGeneral",
                     component: CreateEditView({
-                        name: "general",
+                        name: "setting",
                         create: [
                             {
                                 prop: "title",
@@ -88,11 +88,6 @@ export default new Router({
                                 prop: "description",
                                 label: "站点描述",
                                 placeholder: "侧边栏描述"
-                            },
-                            {
-                                prop: "siteUrl",
-                                label: "博客域名",
-                                placeholder: "博客域名 [https://xxx]"
                             },
                             {
                                 prop: "faviconUrl",
@@ -117,42 +112,43 @@ export default new Router({
                         ]
                     })
                 },
-                {
-                    path: "menu",
-                    name: "optionMenu",
-                    component: CreateEditView({
-                        name: "menu",
-                        items: [
-                            {
-                                prop: "label",
-                                label: "菜单栏",
-                                width: "180"
-                            },
-                            {
-                                prop: "path",
-                                label: "跳转路由",
-                                width: "180"
-                            }
-                        ],
-                        create: [
-                            {
-                                prop: "label",
-                                label: "菜单栏",
-                                placeholder: "菜单栏名称"
-                            },
-                            {
-                                prop: "path",
-                                label: "跳转路由",
-                                placeholder: "路由即可 [/xxx/xxx:?]"
-                            }
-                        ]
-                    })
-                },
+                // 待定
+                // {
+                //     path: "menu",
+                //     name: "optionMenu",
+                //     component: CreateEditView({
+                //         name: "menu",
+                //         items: [
+                //             {
+                //                 prop: "label",
+                //                 label: "菜单栏",
+                //                 width: "180"
+                //             },
+                //             {
+                //                 prop: "path",
+                //                 label: "跳转路由",
+                //                 width: "180"
+                //             }
+                //         ],
+                //         create: [
+                //             {
+                //                 prop: "label",
+                //                 label: "菜单栏",
+                //                 placeholder: "菜单栏名称"
+                //             },
+                //             {
+                //                 prop: "path",
+                //                 label: "跳转路由",
+                //                 placeholder: "路由即可 [/xxx/xxx:?]"
+                //             }
+                //         ]
+                //     })
+                // },
                 {
                     path: "comment",
                     name: "optionComment",
                     component: CreateEditView({
-                        name: "comment",
+                        name: "setting",
                         create: [
                             {
                                 prop: "shortName",
@@ -187,7 +183,7 @@ export default new Router({
                     path: "analytic",
                     name: "optionAnalytic",
                     component: CreateEditView({
-                        name: "analytic",
+                        name: "setting",
                         create: [
                             {
                                 prop: "analyzeCode",

@@ -2,16 +2,16 @@ import Marked from "marked"
 import hljs from "highlight.js"
 
 const renderer = new Marked.Renderer()
-export const toc = []
+const toc = []
 
 renderer.heading = function(text, level) {
-    var slug = text.toLowerCase().replace(/\s+/g, "-")
+    let slug = text.toLowerCase().replace(/\s+/g, "-")
     toc.push({
         level: level,
         slug: slug,
         title: text
     })
-    return `<h${level}><a href='#${slug}' id='${slug}' class='anchor'></a><a href='#${slug}'>${text}</a></h${level}>`
+    return `<h${level}><a href='#${slug}' id='${slug}'>${text}</a></h${level}>`
 }
 
 Marked.setOptions({
@@ -25,8 +25,19 @@ Marked.setOptions({
     renderer
 })
 
-export const marked = text => {
-    var tok = Marked.lexer(text)
+export function marked(text) {
+    let tok = Marked.lexer(text)
     text = Marked.parser(tok).replace(/<pre>/gi, "<pre class='hljs'>")
     return text
+}
+
+export function markedToc(content) {
+    toc.length = 0
+    marked(content)
+    return toc
+        .map(item => {
+            let times = (item.level - 1) * 2
+            return `${" ".repeat(times)} - [${item.title}](#${item.slug})`
+        })
+        .join("\n")
 }

@@ -2,20 +2,10 @@
     <div class="v-header">
         <el-row class="tac">
             <el-col :span="24">
-                <el-menu
-                    default-active="1"
-                    mode="horizontal"
-                    class="el-menu-vertical-demo"
-                    :unique-opened="true"
-                    theme="dark"
-                    @select="handleSelect"
-                    background-color="#555"
-                    text-color="#fff"
-                    active-text-color="#ffd04b"
-                >
+                <el-menu default-active="1" mode="horizontal" class="el-menu-vertical-demo" :unique-opened="true" theme="dark" @select="handleSelect" background-color="#555" text-color="#fff" active-text-color="#ffd04b">
                     <el-submenu index="1" class="v-submenu">
                         <template slot="title">
-                            <span class="v-subtitle">{{displayName === -1 ? '未登录' : displayName}}</span>
+                            <span class="v-subtitle">{{displayName}}</span>
                         </template>
                         <el-menu-item index="1-1">修改密码</el-menu-item>
                         <el-menu-item index="1-2">退出</el-menu-item>
@@ -36,7 +26,8 @@ export default {
     },
     computed: {
         displayName() {
-            return -1
+            let name = window.localStorage.getItem("name")
+            return name || "未登录"
         }
     },
     methods: {
@@ -46,9 +37,8 @@ export default {
                     name: "userEdit"
                 })
             } else if (index === "1-2") {
-                this.$router.push({
-                    name: "logout"
-                })
+                window.localStorage.removeItem("token")
+                this.$router.push("/")
             }
         }
     }

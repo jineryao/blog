@@ -1,7 +1,7 @@
 <template>
     <el-card class="login">
         <el-input v-model="user.name" placeholder="用户名"></el-input>
-        <el-input type="password" v-model="user.password" placeholder="密码" @click="login"></el-input>
+        <el-input type="password" v-model="user.password" placeholder="密码" @keyup.enter.native="login"></el-input>
         <el-button @click="login">登录</el-button>
     </el-card>
 </template>
@@ -42,7 +42,8 @@ export default {
                     if (res.data.status === "success") {
                         this.$promptbox.msg_success("登录成功")
                         window.localStorage.setItem("token", res.data.token)
-                        this.setUser({ name, password })
+                        window.localStorage.setItem("name", name)
+                        this.setUser({ name })
                         this.$router.push("/home")
                     } else {
                         return this.$promptbox.msg_error("登录失败")

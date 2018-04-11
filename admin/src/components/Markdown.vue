@@ -32,18 +32,33 @@
             <div v-show="mode !== 'edit' && mode !== 'toc'" class="md-preview" v-html="compiledMarkdown"></div>
             <textarea v-if="mode === 'toc'" v-model="tocContent" @keydown.enter.prevent.stop="handleTocEnter" class="md-preview"></textarea>
         </div>
+        <el-dialog title="图片上传" :visible.sync="isUploadShow">
+            <div class="upload-body">
+                <el-upload action="//localhost:3000/api/upload" :headers="{'authorization':token}" drag :on-success="handleSuccess" :on-error="handleError">
+                    <i class="el-icon-upload"></i>
+                    <div class="el-dragger__text">将文件拖到此处，或
+                        <em>点击上传</em>
+                    </div>
+                </el-upload>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import _ from "lodash"
-import { marked } from "./../util/marked"
+import { marked, markedToc } from "./../util/marked"
 
 export default {
     name: "markdown",
     props: {
         value: {
             type: Object
+        }
+    },
+    watch: {
+        value(obj) {
+            this.init()
         }
     },
     data() {
@@ -108,20 +123,27 @@ export default {
                 }
             },
             mdContent: "",
-            tocContent: "***文章目录***\n* # "
+            tocContent: "***文章目录***\n* # ",
+            isUploadShow: false
         }
     },
     computed: {
         compiledMarkdown() {
             return marked(this.mdContent.replace(/<!--more-->/g, ""))
+        },
+        token() {
+            return window.localStorage.getItem("token")
         }
     },
     created() {
-        let { markdownToc, markdownContent } = this.value
-        this.mdContent = markdownContent
-        this.tocContent = markdownToc
+        this.init()
     },
     methods: {
+        init() {
+            let { markdownToc, markdownContent } = this.value
+            this.mdContent = markdownContent
+            this.tocContent = markdownToc
+        },
         handleSelect(key, keyPath) {
             switch (key) {
                 case "1":
@@ -136,6 +158,7 @@ export default {
                     this.mode = "toc"
                     break
                 case "7-1":
+                    this.isUploadShow = true
                     break
                 case "7-2":
                     this._importImage()
@@ -165,17 +188,15 @@ export default {
                 cancelButtonText: "取消"
             })
                 .then(({ value }) => {
-                    this._preInputText(`![](${value})`, 12, 12)
-                    this.$promptbox.msg("已插入图片链接")
+                    this._uploadImage(value)
                 })
                 .catch(() => {
                     this.$promptbox.msg("已取消插入图片链接")
                 })
         },
-        _uploadImage() {
-            let path = ""
-            //
+        _uploadImage(path) {
             this._preInputText(`![](${path})`, 12, 12)
+            this.$promptbox.msg("已插入图片链接")
         },
         handleInput: _.debounce(function(e) {
             this.mdContent = typeof e === "string" ? e : e.target.value
@@ -186,12 +207,28 @@ export default {
         handleTocEnter() {
             this.tocContent += `\n* # `
         },
+        handleSuccess(response, file, fileList) {
+            if (response.status === "success") {
+                this._uploadImage(
+                    `http://localhost:3000/images/${response.result}`
+                )
+            } else if (
+                response.status === "fail" &&
+                response.message === "Token无效"
+            ) {
+                this.$promptbox.msg_error("Token无效, 重新登陆")
+            }
+        },
+        handleError(err) {
+            this.$promptbox.msg_error(err)
+        },
         getValue() {
+            let markdownToc = markedToc(this.mdContent)
             return {
                 markdownContent: this.mdContent,
                 content: this.compiledMarkdown,
-                markdownToc: this.tocContent,
-                toc: marked(this.tocContent.replace(/<!--more-->/g, ""))
+                markdownToc,
+                toc: marked(markdownToc)
             }
         }
     }
@@ -204,6 +241,10 @@ export default {
     border: 1px solid #dcdfe6;
     .el-menu-demo {
         background: #eee;
+    }
+    .upload-body {
+        display: flex;
+        justify-content: center;
     }
     .md-editor {
         display: flex;

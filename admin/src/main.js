@@ -26,10 +26,13 @@ api.interceptors.response.use(
             let msg = res.data.message
             Vue.prototype.$promptbox.msg_error(res.data.message)
             if (msg.startsWith("Token")) {
-                setTimeout(() => {
-                    window.localStorage.removeItem("token")
-                    location.href = "/"
-                }, 500)
+                Vue.prototype.$promptbox.msg_error(msg)
+                // 暂未添加文本本地缓存功能, token失效后只提示, 不直接退出
+                // 有缓存后, 待定
+                // setTimeout(() => {
+                //     window.localStorage.removeItem("token")
+                //     location.href = "/"
+                // }, 500)
             }
         }
         return res

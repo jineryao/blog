@@ -70,8 +70,11 @@ export default {
             this.featchList(page)
         },
         featchList(page = 0, limit = this.setting.limit) {
-            let { create, name } = this.options
+            let { create, name, items } = this.options
             let select = {}
+
+            page = --page < 0 ? 0 : page
+
             let options = {
                 limit,
                 skip: page * limit
@@ -81,19 +84,31 @@ export default {
                 options.select = select
             }
 
-            page = --page < 0 ? 0 : page
-
             this.$store
                 .dispatch("findAll", {
                     path: `/${name}`,
                     options
+                })
+                .then(res => {
+                    if (!items && res.total > 0) {
+                        this.createFrom = Object.assign(
+                            {},
+                            this.createFrom,
+                            res.result[0]
+                        )
+                    }
                 })
                 .catch(err => {
                     this.$promptbox.msg_error(err)
                 })
         },
         handleEdit(row) {
-            this.$set(this, "createFrom", row)
+            if (this.options.name === "post") {
+                this.$store.commit("SET_POST", row)
+                this.$router.push("/post/edit")
+            } else {
+                this.$set(this, "createFrom", row)
+            }
         },
         handleDelete(index, row) {
             this.$promptbox

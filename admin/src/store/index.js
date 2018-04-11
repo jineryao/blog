@@ -13,7 +13,8 @@ export default new Vuex.Store({
         listSetting: {
             limit: 5
         },
-        tags: []
+        tags: [],
+        post: null
     },
     actions: {
         create({ state, commit }, { path, model }) {
@@ -38,6 +39,7 @@ export default new Vuex.Store({
                             return reject(res.data.message)
                         }
                         commit("SET_LIST", res.data)
+                        resolve(res.data)
                     })
                     .catch(err => reject(err))
             })
@@ -78,7 +80,7 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        SET_USER(state, { user }) {
+        SET_USER(state, user) {
             Vue.set(state, "user", user)
         },
         SET_LIST(state, { result = [], total = 0 }) {
@@ -87,11 +89,16 @@ export default new Vuex.Store({
         },
         SET_TAGS(state, data) {
             Vue.set(state, "tags", data)
+        },
+        SET_POST(state, data) {
+            Vue.set(state, "post", data)
         }
     },
     getters: {
         user: state => state.user,
         list: state => state.list,
-        setting: state => state.listSetting
+        setting: state => state.listSetting,
+        post: state => state.post,
+        tags: state => state.tags
     }
 })

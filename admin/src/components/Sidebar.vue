@@ -31,12 +31,22 @@ export default {
                         { path: "/post/edit", label: "添加文章" }
                     ]
                 },
+                // 待定
+                // {
+                //     label: "相册管理",
+                //     icon: "menu",
+                //     subset: [
+                //         { path: "/photo/list", label: "相册列表" },
+                //         { path: "/photo/add", label: "添加相册" }
+                //     ]
+                // },
                 {
                     label: "系统设置",
                     icon: "setting",
                     subset: [
                         { path: "/option/general", label: "基本设置" },
-                        { path: "/option/menu", label: "页面列表" },
+                        // 待定
+                        // { path: "/option/menu", label: "页面列表" },
                         { path: "/option/comment", label: "评论设置" },
                         { path: "/option/tags", label: "标签设置" },
                         { path: "/option/analytic", label: "统计代码" }
