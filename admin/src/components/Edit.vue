@@ -77,7 +77,10 @@ export default {
 
             let options = {
                 limit,
-                skip: page * limit
+                skip: page * limit,
+                sort: {
+                    createdAt: -1
+                }
             }
             if (create) {
                 create.forEach(item => (select[item.prop] = 1))

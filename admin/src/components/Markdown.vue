@@ -34,7 +34,7 @@
         </div>
         <el-dialog title="图片上传" :visible.sync="isUploadShow">
             <div class="upload-body">
-                <el-upload action="//localhost:3000/api/upload" :headers="{'authorization':token}" drag :on-success="handleSuccess" :on-error="handleError">
+                <el-upload :action="actionHost" :headers="{'authorization':token}" drag :on-success="handleSuccess" :on-error="handleError">
                     <i class="el-icon-upload"></i>
                     <div class="el-dragger__text">将文件拖到此处，或
                         <em>点击上传</em>
@@ -133,6 +133,12 @@ export default {
         },
         token() {
             return window.localStorage.getItem("token")
+        },
+        host() {
+            return this.$store.getters.host
+        },
+        actionHost() {
+            return `//${this.host}/api/upload`
         }
     },
     created() {
@@ -210,7 +216,7 @@ export default {
         handleSuccess(response, file, fileList) {
             if (response.status === "success") {
                 this._uploadImage(
-                    `http://localhost:3000/images/${response.result}`
+                    `http://${this.host}/images/${response.result}`
                 )
             } else if (
                 response.status === "fail" &&
@@ -224,7 +230,9 @@ export default {
         },
         getValue() {
             let markdownToc = markedToc(this.mdContent)
+            let summary = marked(this.mdContent.split("<!--more-->")[0])
             return {
+                summary,
                 markdownContent: this.mdContent,
                 content: this.compiledMarkdown,
                 markdownToc,

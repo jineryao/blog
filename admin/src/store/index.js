@@ -14,7 +14,8 @@ export default new Vuex.Store({
             limit: 5
         },
         tags: [],
-        post: null
+        post: null,
+        host: "localhost:3000"
     },
     actions: {
         create({ state, commit }, { path, model }) {
@@ -99,6 +100,7 @@ export default new Vuex.Store({
         list: state => state.list,
         setting: state => state.listSetting,
         post: state => state.post,
-        tags: state => state.tags
+        tags: state => state.tags,
+        host: state => state.host
     }
 })

@@ -5,16 +5,11 @@
                 <el-form-item label="操作">
                     <div class="flex-row operating">
                         <el-button type="primary" plain @click.native="submit">提交文章</el-button>
-                        <div>
-                            <el-switch class="operating-switch" v-model="from.isPublic" active-text="是否公开">
-                            </el-switch>
-                            <el-switch class="operating-switch" v-model="from.allowComment" active-text="是否可评论">
-                            </el-switch>
-                        </div>
+
                     </div>
                 </el-form-item>
                 <div class="flex-row">
-                    <div class="hear-info">
+                    <div class="operating">
                         <el-form-item label="标题">
                             <el-input v-model="from.title"></el-input>
                         </el-form-item>
@@ -27,6 +22,14 @@
                                 </el-option>
                             </el-select>
                         </el-form-item>
+                    </div>
+                    <div class="operating">
+                        <el-form-item>
+                            <el-switch class="operating-switch" v-model="from.isPublic" active-text="是否公开">
+                            </el-switch>
+                            <el-switch class="operating-switch" v-model="from.allowComment" active-text="是否可评论">
+                            </el-switch>
+                        </el-form-item>
                         <el-form-item label="创建日期">
                             <el-date-picker v-model="from.createdAt" type="datetime" placeholder="选择日期时间">
                             </el-date-picker>
@@ -35,11 +38,9 @@
                             <el-date-picker v-model="from.updatedAt" type="datetime" placeholder="选择日期时间">
                             </el-date-picker>
                         </el-form-item>
-                    </div>
-                    <div class="summary">
-                        <el-form-item label="摘要">
+                        <!-- <el-form-item label="摘要">
                             <el-input class="textarea" type="textarea" v-model="from.summary"></el-input>
-                        </el-form-item>
+                        </el-form-item> -->
                     </div>
                 </div>
                 <el-form-item label="内容">
@@ -65,8 +66,8 @@ export default {
             from: {
                 title: "",
                 pathName: "",
-                createdAt: "",
-                updatedAt: "",
+                createdAt: new Date().toUTCString(),
+                updatedAt: new Date().toUTCString(),
                 tags: [],
                 summary: "",
                 toc: "",
@@ -111,6 +112,7 @@ export default {
                     let msg = method === "create" ? "添加" : "修改"
                     if (res._id || res.status === "success") {
                         this.$promptbox.msg_success(`${msg}成功`)
+                        this.$router.push("/post/list")
                     } else if (
                         res.status === "fail" &&
                         res.message.startsWith("Token")
@@ -130,10 +132,11 @@ export default {
 @import "./../assets/css/base.scss";
 #post {
     .operating {
+        flex: 1;
         align-items: center;
         justify-content: space-between;
         .operating-switch {
-            margin-left: 20px;
+            margin-right: 30px;
         }
     }
     .el-date-editor.el-input {
@@ -141,9 +144,6 @@ export default {
     }
     .tags-select {
         width: 100%;
-    }
-    .hear-info {
-        width: 45%;
     }
     .summary {
         flex: 1;
