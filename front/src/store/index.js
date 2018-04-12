@@ -12,11 +12,13 @@ export function createStore() {
                 content: "<p>你要找的页面不存在。</p>",
                 allowComment: false
             },
-            tags: {},
+            tags: [],
+            setting: {
+                title: "",
+                description: "",
+                logoUrl: ""
+            },
             siteInfo: {
-                title: "smcat",
-                avatar:
-                    "http://img.mp.sohu.com/upload/20170802/eb0902ecc7f547d2a09b0565321a5f19_th.png",
                 menu: [
                     { label: "首页", path: "/?page=1", type: "icon-homepage" },
                     // { label: "归档", path: "/archive", type: "icon-tasklist" },  // 待定
@@ -81,9 +83,30 @@ export function createStore() {
                     })
                     commit("SET_TAGS", result)
                 })
+            },
+            FETCH_SETTING({ state, commit }) {
+                return axios
+                    .get("/setting", {
+                        params: {
+                            select: {
+                                title: 1,
+                                logoUrl: 1,
+                                description: 1,
+                                keywords: 1
+                            }
+                        }
+                    })
+                    .then(res => {
+                        if (res.data.total > 0) {
+                            commit("SET_SETTING", res.data.result[0])
+                        }
+                    })
             }
         },
         mutations: {
+            SET_SETTING(state, data) {
+                Vue.set(state, "setting", data)
+            },
             SET_SITEIFNO(state, siteInfo) {
                 Vue.set(state, "siteInfo", siteInfo)
             },
@@ -106,7 +129,8 @@ export function createStore() {
             limit: state => state.limit,
             list: state => state.list,
             post: state => state.post,
-            total: state => state.total
+            total: state => state.total,
+            setting: state => state.setting
         }
     })
 }

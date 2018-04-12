@@ -2,10 +2,10 @@
     <nav id="sidebar">
         <div class="user">
             <router-link to="/" class="avater-wrap">
-                <img :src="siteInfo.avatar" alt="头像" class="avatar">
+                <img :src="setting.logoUrl" alt="头像" class="avatar">
             </router-link>
             <p class="title">
-                {{ siteInfo.title }}
+                {{ setting.description }}
             </p>
         </div>
         <div class="btns">
@@ -17,12 +17,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 export default {
     name: "sidebar",
     computed: {
-        siteInfo() {
-            return this.$store.getters.siteInfo
-        }
+        ...mapGetters(["siteInfo", "setting"])
+    },
+    asyncData({ store, route }) {
+        return store.dispatch("FETCH_SETTING")
     }
 }
 </script>

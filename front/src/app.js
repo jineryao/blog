@@ -1,5 +1,6 @@
 import Vue from "vue"
 import App from "./App.vue"
+import Sidebar from "./components/VSidebar"
 import { createStore } from "./store"
 import { createRouter } from "./router"
 import { sync } from "vuex-router-sync"
@@ -20,5 +21,5 @@ export function createApp() {
         store,
         render: h => h(App)
     })
-    return { app, router, store }
+    return { app, router, store, preFetchComponent: [Sidebar] }
 }

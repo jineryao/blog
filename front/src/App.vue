@@ -44,13 +44,10 @@ export default {
                 setTimeout(() => {
                     _this.close = true
                 }, 300)
-                _this.sidebarShow = onoff
             } else {
-                // setTimeout(() => {
-                    _this.sidebarShow = onoff
-                // }, 150)
                 _this.close = false
             }
+            _this.sidebarShow = onoff
         }
     }
 }
@@ -59,8 +56,6 @@ export default {
 <style lang="scss">
 @import "./assets/css/base.css";
 @import "./assets/css/iconfont.css";
-@import "./assets/css/highlight";
-
 #app {
     position: relative;
     display: flex;

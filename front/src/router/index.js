@@ -1,5 +1,6 @@
 import Vue from "vue"
 import Router from "vue-router"
+import createPageView from "./../views/CreatePageView"
 
 Vue.use(Router)
 
@@ -9,19 +10,31 @@ export function createRouter() {
     return new Router({
         mode: "history",
         fallback: false,
-        scrollBehavior: () => ({ y: 0 }),
+        scrollBehavior: (to, from, savedPosition) =>
+            savedPosition || { x: 0, y: 0 },
         routes: [
-            { path: "/", component: requireView("ItemList") },
+            {
+                path: "/tags",
+                name: "tags",
+                component: requireView("Tags")
+            },
+            {
+                path: "/tag/:tag?",
+                name: "tagPage",
+                component: requireView("TagPage")
+            },
             {
                 path: "/post/:pathName?",
                 name: "post",
-                component: requireView("BlogPage")
+                component: createPageView("BlogPage")
+                // BlogPage
             },
             {
-                path: "/archive",
-                name: "archive",
-                component: requireView("Archive")
-            }
+                path: "/about",
+                name: "about",
+                component: createPageView("about", "about")
+            },
+            { path: "/", component: requireView("ItemList") }
         ]
     })
 }

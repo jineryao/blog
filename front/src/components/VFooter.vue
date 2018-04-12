@@ -24,7 +24,7 @@ export default {
 @import "./../assets/css/setting.scss";
 
 #footer {
-    font-size: .9em;
+    font-size: 0.9em;
     line-height: 1.8;
     padding: 15px;
     text-align: center;

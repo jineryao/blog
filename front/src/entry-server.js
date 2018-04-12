@@ -5,8 +5,7 @@ const isDev = process.env.NODE_ENV !== "production"
 export default context => {
     return new Promise((resolve, reject) => {
         const s = isDev && Date.now()
-        const { app, router, store } = createApp()
-
+        const { app, router, store, preFetchComponent } = createApp()
         const { url } = context
         const { fullPath } = router.resolve(url).route
 
@@ -19,10 +18,14 @@ export default context => {
 
         // 等待路由器解决可能的异步钩子。
         router.onReady(() => {
-            const matchedComponents = router.getMatchedComponents()
+            let matchedComponents = router.getMatchedComponents()
+
             if (!matchedComponents.length) {
                 return reject({ code: 404 })
             }
+
+            matchedComponents = matchedComponents.concat(preFetchComponent)
+
             Promise.all(
                 matchedComponents.map(
                     ({ asyncData }) =>
