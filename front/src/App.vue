@@ -8,12 +8,14 @@
                 <VSidebar></VSidebar>
             </div>
             <div class="view">
-                <div class="card">
-                    <transition name="app-content" mode="out-in">
-                        <router-view/>
-                    </transition>
+                <div class="blank-leaving">
+                    <div class="card">
+                        <transition name="app-content" mode="out-in">
+                            <router-view/>
+                        </transition>
+                    </div>
+                    <VFooter></VFooter>
                 </div>
-                <VFooter></VFooter>
             </div>
         </div>
     </div>
@@ -56,6 +58,7 @@ export default {
 <style lang="scss">
 @import "./assets/css/base.css";
 @import "./assets/css/iconfont.css";
+@import "./assets/css/highlight";
 #app {
     position: relative;
     display: flex;
@@ -104,9 +107,13 @@ export default {
 .header {
     transition: all 0.3s ease-in-out;
 }
+.blank-leaving {
+    width: 100%;
+    background: #fff;
+}
 .card {
     padding: 0 40px;
-    background: #fff;
+    max-width: 1150px;
     .content {
         padding-bottom: 30px;
         border-bottom: 1px solid #ddd;

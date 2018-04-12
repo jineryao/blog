@@ -20,6 +20,7 @@ export default {
     margin-left: 20px;
     padding: 5px 10px;
     max-width: 260px;
+    font-size: 14px;
     border: 1px solid #e2e2e2;
     .toc-title {
         margin: 0;

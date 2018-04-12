@@ -2,7 +2,7 @@
     <header id="v-header">
         <i class="iconfont icon-other icon-btn" @click="open"></i>
         <p class="v-header-title">
-            {{ siteInfo.title }}
+            {{ setting.title }}
         </p>
     </header>
 </template>
@@ -11,8 +11,8 @@
 export default {
     name: "vheader",
     computed: {
-        siteInfo() {
-            return this.$store.getters.siteInfo
+        setting() {
+            return this.$store.getters.setting
         }
     },
     methods: {
@@ -36,6 +36,7 @@ export default {
         left: 15px;
         margin: auto;
         font-size: 2.5em;
+        line-height: normal;
         cursor: pointer;
     }
     .v-header-title {

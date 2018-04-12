@@ -36,8 +36,8 @@ export function markedToc(content) {
     marked(content)
     return toc
         .map(item => {
-            let times = (item.level - 1) * 2
-            return `${" ".repeat(times)} - [${item.title}](#${item.slug})`
+            let num = item.level - 1
+            return `${" ".repeat(num)} - [${item.title}](#${item.slug})`
         })
         .join("\n")
 }

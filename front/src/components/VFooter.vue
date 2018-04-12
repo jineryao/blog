@@ -1,6 +1,6 @@
 <template>
     <footer id="footer" class="inner">
-        &copy;&nbsp;2018&nbsp;-&nbsp; {{ siteInfo.title }} &nbsp;-&nbsp;
+        &copy;&nbsp;2018&nbsp;-&nbsp; {{ setting.title }} &nbsp;-&nbsp;
         <a target=_blank href="https://github.com/jineryao/blog">博客源码</a>
         <br> Powered by&nbsp;
         <a target=_blank href="https://github.com/vuejs/vue">Vue2</a>
@@ -15,7 +15,7 @@ import { mapGetters } from "vuex"
 export default {
     name: "foot",
     computed: {
-        ...mapGetters(["siteInfo"])
+        ...mapGetters(["setting"])
     }
 }
 </script>
