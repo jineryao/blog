@@ -6,12 +6,13 @@ const dir = require("./../utils/dir")
 const conf = require("./../conf/base")
 
 let dirName = `${conf.staticDirName}/${conf.uploadImgDirName}`
-dir.fsMkdirsSync(path.resolve(__dirname, "..", dirName))
+let desDirName = path.resolve(__dirname, "..", dirName)
+dir.fsMkdirsSync(desDirName)
 
 //配置
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, dirName)
+        cb(null, desDirName)
     },
     filename: function(req, file, cb) {
         let fileFormat = file.originalname.split(".")

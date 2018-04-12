@@ -59,6 +59,8 @@ export default {
 <style lang="scss">
 @import "./assets/css/base.css";
 @import "./assets/css/iconfont.css";
+@import "./assets/css/highlight";
+
 #app {
     position: relative;
     display: flex;

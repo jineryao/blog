@@ -36,8 +36,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./../assets/css/setting.scss";
+
 .blog-summary {
     padding: 30px 0;
     border-bottom: 1px solid #ddd;
@@ -54,6 +55,9 @@ export default {
     }
     .entry-content {
         margin: 25px 0;
+        ul {
+            margin: 0 0.5em 0 1.5em;
+        }
     }
     .more {
         color: $blue;

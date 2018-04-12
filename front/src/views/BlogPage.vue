@@ -28,15 +28,11 @@ export default {
             return this.$store.getters.post
         }
     }
-    // asyncData({ store, route }) {
-    //     return store.dispatch("FETCH_POST", { pathName: route.params.pathName })
-    // }
 }
 </script>
 
 <style lang="scss">
 @import "./../assets/css/setting";
-@import "./../assets/css/highlight";
 
 #blog-page {
     padding-top: 30px;
@@ -47,6 +43,9 @@ export default {
         justify-content: space-between;
         align-items: center;
     }
+    .blog-content {
+        padding-bottom: 30px;
+    }
     a {
         color: $blue;
     }
@@ -55,9 +54,6 @@ export default {
     }
     ul {
         margin: 0 0.5em 0 1.5em;
-    }
-    .blog-content {
-        margin-bottom: 25px;
     }
 }
 </style>
