@@ -92,7 +92,8 @@ export function createStore() {
                                 title: 1,
                                 logoUrl: 1,
                                 description: 1,
-                                keywords: 1
+                                keywords: 1,
+                                shortName: 1
                             }
                         }
                     })

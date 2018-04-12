@@ -4,11 +4,10 @@
 
 <script>
 export default {
-    props: {
-        shortName: {
-            type: String,
-            // required: true,
-            dafault: "smcat"
+    name: "disqus_thread",
+    computed: {
+        shortName() {
+            return this.$store.getters.setting.shortName || ""
         }
     },
     components: {
