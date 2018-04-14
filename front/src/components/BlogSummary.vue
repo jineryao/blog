@@ -54,7 +54,7 @@ export default {
         }
     }
     .entry-content {
-        margin: 25px 0;
+        margin: $spacing 0;
         ul {
             margin: 0 0.5em 0 1.5em;
         }

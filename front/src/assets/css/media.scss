@@ -1,6 +1,6 @@
 @media screen and (max-width: 900px) {
     h2 {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
     .header {
         width: 100vw;
@@ -34,7 +34,7 @@
         padding-bottom: 20px;
         width: 100%;
     }
-    #toc {
+    .blog-content #toc {
         float: inherit;
         max-width: 100%;
         width: 100%;
@@ -44,7 +44,7 @@
 }
 @media screen and (max-width: 500px) {
     body {
-        font-size: 18px;
+        font-size: 16px;
     }
     .date {
         display: none;

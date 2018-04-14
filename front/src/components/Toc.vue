@@ -37,8 +37,4 @@ export default {
 }
 </style>
 
-<style lang="scss">
-@import "./../assets/css/media";
-</style>
-
 

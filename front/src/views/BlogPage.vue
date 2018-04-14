@@ -39,7 +39,7 @@ export default {
     border-bottom: 1px solid #ddd;
     .blog-title {
         @include flex-row;
-        margin-bottom: 25px;
+        margin-bottom: $spacing;
         justify-content: space-between;
         align-items: center;
     }

@@ -1,7 +1,11 @@
 module.exports = {
     async execute(ctx, next) {
         const isLogin = ctx.url.startsWith("/api/admin/login")
-        const isGet = ctx.url.startsWith("/api/") && ctx.method === "GET"
+        const isGet =
+            ctx.url.startsWith("/api/") &&
+            ctx.method === "GET" &&
+            !ctx.url.startsWith("/api/user")
+
         if (isLogin || isGet) return next()
         const headers = ctx.request.headers
         const _service = ctx._service
