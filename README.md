@@ -35,9 +35,9 @@
 
 <details>
 <summary>server基础配置</summary>  
-  
-**基础配置文件: `/conf/base.js`**  
-  
+
+> 基础配置文件: `/blog/server/conf/base.js` 
+
 ```javascript
 {
     // node 服务配置
@@ -84,9 +84,8 @@
 <details>
 <summary>nginx配置</summary>  
 
-**Nginx 配置文件: `/etc/nginx.conf`**  
-
-> nginx 配置文件内的参数对应 server 配置
+> nginx 配置文件: `/etc/nginx.conf`  
+> `注意: nginx配置的参数对应server的配置`
 
 ```
 #压缩
@@ -136,11 +135,10 @@ server {                        #front(博客)入口
 <details>
 <summary>pm2配置</summary>  
 
-**pm2 配置文件: `/blog/pm2.js`**  
-
+> pm2 配置文件: `/blog/pm2.js`  
 > pm2 全局安装, 启动命令(blog 目录下): `pm2 startOrRestart pm2.js`
 
-```js
+```javascript
 module.exports = {
     apps: [
         {
