@@ -34,10 +34,10 @@
 ## 应用配置
 
 <details>
-<summary>server基础配置</summary>
-
-**基础配置文件: `/conf/base.js`**
-
+<summary>server基础配置</summary>  
+  
+**基础配置文件: `/conf/base.js`**  
+  
 ```javascript
 {
     // node 服务配置
@@ -82,9 +82,9 @@
 </details>
 
 <details>
-<summary>nginx配置</summary>
+<summary>nginx配置</summary>  
 
-**Nginx 配置文件: `/etc/nginx.conf`**
+**Nginx 配置文件: `/etc/nginx.conf`**  
 
 > nginx 配置文件内的参数对应 server 配置
 
@@ -97,19 +97,19 @@ gzip_types      text/plain text/css text/javascript image/jpeg image/gif image/p
 gzip_vary       on;  
 gzip_disable    "MSIE [1-6]\.";  
 
-server {  
+server {                                    #amdin入口
     listen       80;  
-    server_name admin.smcat.com;  #amdin入口
+    server_name admin.smcat.com;  
     location / {  
-        root   /mnt/www/blog/admin/dist;  #打包后存储地址
+        root   /mnt/www/blog/admin/dist;    #admin打包后存储目录
         index  index.html index.htm;  
         try_files $uri $uri/ /index.html;  
     }  
 }  
 
-server {  
+server {                        #front(博客)入口
     listen    80;  
-    server_name smcat.xyz;      #front入口
+    server_name smcat.xyz;      
     client_max_body_size 20M;   #上传文件大小限制
     location ~ ^/(images)/ {    #图片静态目录入口
         root  /mnt/www/blog/server/static/;  
@@ -134,9 +134,9 @@ server {
 </details>
 
 <details>
-<summary>pm2配置</summary>
+<summary>pm2配置</summary>  
 
-**pm2 配置文件: `/blog/pm2.js`**
+**pm2 配置文件: `/blog/pm2.js`**  
 
 > pm2 全局安装, 启动命令(blog 目录下): `pm2 startOrRestart pm2.js`
 
