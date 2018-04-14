@@ -76,14 +76,14 @@ export default {
     }
 }
 .header {
+    z-index: 666;
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
-    width: 100vw;
-    height: 46px;
-    z-index: 666;
+    width: 0;
+    height: 0px;
     opacity: 0;
     background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #e1e1e1);
 }
@@ -103,7 +103,6 @@ export default {
     background: #f5f5f5;
 }
 .sidebar,
-.view,
 .header {
     transition: all 0.3s ease-in-out;
 }

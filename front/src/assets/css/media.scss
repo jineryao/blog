@@ -3,19 +3,22 @@
         font-size: 1.1em;
     }
     .header {
+        width: 100vw;
+        height: 46px;
         opacity: 1;
     }
     .sidebar {
+        z-index: 777;
         width: 40vw;
         opacity: 0;
         transform: translateX(-100%);
-        z-index: 777;
         &.open {
             position: fixed;
             opacity: 1;
             transform: translateX(0);
         }
         &.open::after {
+            z-index: 700;
             content: "";
             position: fixed;
             top: 0;
@@ -24,7 +27,6 @@
             width: 60vw;
             height: 100vh;
             background: rgba(#000, 0.3);
-            z-index: 700;
         }
     }
     .view {
@@ -45,7 +47,7 @@
         font-size: 18px;
     }
     .date {
-        opacity: 0;
+        display: none;
     }
     .sidebar {
         &.open {
