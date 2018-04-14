@@ -225,7 +225,7 @@ delete
 
 > GET http://smcat.xyz/api/post
 
-#### 带有参数的查询
+#### 带有参数的查询(更新，删除，修改都可加入conditions)
 
 > GET [http://smcat.xyz/api/post?limit=1&skip=0&select={"title":1,"pathName":1}&conditions={"isPublic":true}&sort={"createdAt":-1}](http://smcat.xyz/api/post?limit=1&skip=0&select=%7B%22title%22:1,%22pathName%22:1%7D&conditions=%7B%22isPublic%22:true%7D&sort=%7B%22createdAt%22:-1%7D)
 
