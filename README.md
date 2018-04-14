@@ -224,12 +224,12 @@ delete
 
 #### 带有参数的查询
 
-> GET http://smcat.xyz/api/post?limit=2&skip=0&select=%7B%22title%22:1,%22pathName%22:1%7D&conditions=%7B%22isPublic%22:true%7D&sort=%7B%22createdAt%22:-1%7D
+> GET [http://smcat.xyz/api/post?limit=1&skip=0&select={"title":1,"pathName":1}&conditions={"isPublic":true}&sort={"createdAt":-1}](http://smcat.xyz/api/post?limit=1&skip=0&select=%7B%22title%22:1,%22pathName%22:1%7D&conditions=%7B%22isPublic%22:true%7D&sort=%7B%22createdAt%22:-1%7D)
 
 ```javascript
 // 请求的参数列表:
 {
-    limit: 2,           // 返回值条数
+    limit: 1,           // 返回值条数
     skip: 0,            // 过滤掉几条数据
     select: {           // 需要的字段(_id默认返回,不需要则添加 _id:0 )
         "title":1,
