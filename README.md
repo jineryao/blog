@@ -36,7 +36,7 @@
 <details>
 <summary>server基础配置</summary>  
 
-> 基础配置文件: `/blog/server/conf/base.js` 
+> 基础配置文件: `/blog/server/conf/base.js`
 
 ```javascript
 {
@@ -108,7 +108,7 @@ server {                                    #amdin入口
 
 server {                        #front(博客)入口
     listen    80;  
-    server_name smcat.xyz;      
+    server_name smcat.xyz;
     client_max_body_size 20M;   #上传文件大小限制
     location ~ ^/(images)/ {    #图片静态目录入口
         root  /mnt/www/blog/server/static/;  
@@ -135,29 +135,32 @@ server {                        #front(博客)入口
 <details>
 <summary>pm2配置</summary>  
 
-> pm2 配置文件: `/blog/pm2.js`  
-> pm2 全局安装, 启动命令(blog 目录下): `pm2 startOrRestart pm2.js`
+> pm2 配置文件: `/blog/pm2.json`  
+> pm2 全局安装, 启动命令(blog 目录下): `pm2 startOrRestart pm2.json`
 
-```javascript
-module.exports = {
-    apps: [
+```json
+{
+    "apps": [
         {
-            name: "blogServer", // server入口
-            script: "server/app.js",
-            cwd: "./",
-            watch: true,
-            max_memory_restart: "256M",
-            exec_mode: "cluster",
-            autorestart: true
+            "name": "blog",
+            "script": "front/production.js",
+            "cwd": "",
+            "exec_mode": "cluster",
+            "instances": 0,
+            "max_memory_restart": "256M",
+            "autorestart": true,
+            "node_args": [],
+            "args": [],
+            "env": {}
         },
         {
-            name: "blogFront", // 前端ssr入口
-            script: "front/production.js",
-            cwd: "./",
-            watch: true,
-            env: {
-                NODE_ENV: "production" // 环境参数
-            }
+            "name": "server",
+            "script": "server/app.js",
+            "cwd": "",
+            "watch": false,
+            "max_memory_restart": "256M",
+            "exec_mode": "cluster",
+            "autorestart": true
         }
     ]
 }
@@ -234,13 +237,13 @@ delete
     select: {           // 需要的字段(_id默认返回,不需要则添加 _id:0 )
         "title":1,
         "pathName":1
-    }, 
+    },
     conditions: {       // 查询条件(公开的post)
         "isPublic":true
     },  
     sort: {             // 排序(按新建时间倒序)
         "createdAt":-1
-    }          
+    }
 }
 
 // 响应值列表:
@@ -258,20 +261,18 @@ delete
 
 ### 新增
 
-需要验证Token, body中存储需要新增的文档`(JSON格式)`  
-modelName可支持的数值, 查看`/server/model/`目录下的模型key
+需要验证 Token, body 中存储需要新增的文档`(JSON格式)`  
+modelName 可支持的数值, 查看`/server/model/`目录下的模型 key
 
-> POST https://smcat.xyz/api/:modelName    
-
+> POST https://smcat.xyz/api/:modelName
 
 ### 更新
 
-需要验证Token, body中存储需要更新的文档`(JSON格式)`  
-modelName可支持的数值, 查看`/server/model/`目录下的模型key  
-id为被更新的文档 `_id`
+需要验证 Token, body 中存储需要更新的文档`(JSON格式)`  
+modelName 可支持的数值, 查看`/server/model/`目录下的模型 key  
+id 为被更新的文档 `_id`
 
-> PUT https://smcat.xyz/api/:modelName/:id  
-
+> PUT https://smcat.xyz/api/:modelName/:id
 
 ### 删除
 
