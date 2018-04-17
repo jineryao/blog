@@ -188,13 +188,13 @@ export default {
     }
 }
 .el-pagination {
-    margin: 20px 0;
+    margin: $spacing 0;
 }
 .create {
     padding-right: 30vw;
     .title {
         display: block;
-        margin-bottom: 20px;
+        margin-bottom: $spacing;
     }
 }
 </style>
