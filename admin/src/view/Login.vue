@@ -19,18 +19,10 @@ export default {
             }
         }
     },
-    mounted() {
-        this.init()
-    },
     methods: {
         ...mapMutations({
             setUser: "SET_USER"
         }),
-        init() {
-            if (window.localStorage.getItem("token")) {
-                this.$router.push("/home")
-            }
-        },
         login() {
             let { name, password } = this.user
             if (!name || !password) {
@@ -43,6 +35,10 @@ export default {
                         this.$promptbox.msg_success("登录成功")
                         window.localStorage.setItem("token", res.data.token)
                         window.localStorage.setItem("name", name)
+                        window.localStorage.setItem(
+                            "LastLoginTime",
+                            new Date().getTime()
+                        )
                         this.setUser({ name })
                         this.$router.push("/home")
                     } else {

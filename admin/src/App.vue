@@ -6,7 +6,22 @@
 
 <script>
 export default {
-    name: "App"
+    name: "App",
+    mounted() {
+        this.init()
+    },
+    methods: {
+        init() {
+            if (window.localStorage.getItem("token")) {
+                let last = window.localStorage.getItem("LastLoginTime")
+                if (new Date().getTime() - last < 3600000) {
+                    this.$router.push("/home")
+                    return
+                }
+            }
+            this.$router.push("/")
+        }
+    }
 }
 </script>
 
