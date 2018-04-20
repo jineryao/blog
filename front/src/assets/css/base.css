@@ -56,6 +56,7 @@ a {
     color: #666;
     text-decoration: none;
     outline: none;
+    word-wrap: break-word;
 }
 a:hover {
     color: #2479cc;
@@ -72,4 +73,22 @@ i {
 }
 h2 {
     font-size: 1.3em;
+}
+blockquote {
+    background: #f9f9f9;
+    border-left: 5px solid #ccc;
+    margin: 1em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C" "\201D";
+}
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 2em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+blockquote p {
+    display: inline;
 }

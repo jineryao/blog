@@ -10,8 +10,11 @@ export function createRouter() {
     return new Router({
         mode: "history",
         fallback: false,
-        scrollBehavior: (to, from, savedPosition) =>
-            savedPosition || { x: 0, y: 0 },
+        scrollBehavior(to, from, savedPosition) {
+            setTimeout(() => {
+                document.body.scrollTo(0, 0)
+            }, 500)
+        },
         routes: [
             {
                 path: "/tags",

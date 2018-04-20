@@ -182,19 +182,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list {
-    .edit-tag {
-        margin-right: 5px;
+.edit {
+    .list {
+        .edit-tag {
+            margin-right: 5px;
+        }
     }
-}
-.el-pagination {
-    margin: $spacing 0;
-}
-.create {
-    padding-right: 30vw;
-    .title {
-        display: block;
-        margin-bottom: $spacing;
+    .el-pagination {
+        margin: 20px 0;
+    }
+    .create {
+        padding-right: 30vw;
+        .title {
+            display: block;
+            margin-bottom: 20px;
+        }
     }
 }
 </style>
