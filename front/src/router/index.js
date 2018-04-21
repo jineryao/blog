@@ -30,13 +30,8 @@ export function createRouter() {
                 path: "/post/:pathName?",
                 name: "post",
                 component: createPageView("BlogPage")
-                // BlogPage
             },
-            {
-                path: "/about",
-                name: "about",
-                component: createPageView("about", "about")
-            },
+            { path: "/:pathName", component: createPageView() },
             { path: "/", component: requireView("ItemList") }
         ]
     })
